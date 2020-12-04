@@ -57,10 +57,24 @@ We have provided test data for all the resources.
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. The core features of Node.js and Express and why they are useful.
+
+Both NodeJS and Express are written and JavaScript, making them fairly easy to learn and manipulate. Additionally, Express is a very minimal framework, making it very flexible and scalable for larger applications.
+
 1. Understand and explain the use of Middleware.
+
+Middleware functions are used to manipulate the request and response objects in the req-res cycle. They can be used to do things like execute code, make changes to the req and res objects, and call the next middleware function.
+
 1. The basic principles of the REST architectural style.
+
+REST uses HTTP protocol to make calls between the client and the server for all CRUD operations. Using HTTP allows REST services to be used by nearly any online device, without any propietary knowledge of the API.
+
 1. Understand and explain the use of Express Routers.
+
+Express router can be used to create routes and handle validation.
+
 1. Describe tooling used to manually test the correctness of an API.
+
+You can use a tool like Postman to test all CRUD operations within and API.
 
 ## Instructions
 
@@ -95,15 +109,15 @@ A _"test"_ script already exists you can use to run tests against your code.
   - `[GET] /api/actions` sends an array of actions (or an empty array) as the body of the _response_.
   - `[GET] /api/actions/:id` sends an action with the given `id` as the body of the _response_.
   - `[POST] /api/actions` sends the newly created action as the body of the _response_.
-  - `[PUT] /api/actions` sends the updated action as the body of the _response_.
-  - `[DELETE] /api/actions` sends no _response_ body.
+  - `[PUT] /api/actions/:id` sends the updated action as the body of the _response_.
+  - `[DELETE] /api/actions/:id` sends no _response_ body.
 
 - [ ] Inside `api/projects/projects-router.js` build endpoints for performing CRUD operations on _projects_:
   - `[GET] /api/projects` sends an array of projects (or an empty array) as the body of the response.
   - `[GET] /api/projects/:id` sends a project with the given `id` as the body of the _response_.
   - `[POST] /api/projects` sends the newly created project as the body of the _response_.
-  - `[PUT] /api/projects` sends the updated project as the body of the _response_.
-  - `[DELETE] /api/projects` sends no _response_ body.
+  - `[PUT] /api/projects/:id` sends the updated project as the body of the _response_.
+  - `[DELETE] /api/projects/:id4` sends no _response_ body.
 
 - [ ] Inside `api/projects/projects-router.js` add an endpoint for retrieving the list of actions for a project:
   - `[GET] /api/projects/:id/actions` sends an array of actions (or an empty array) as the body of the response.
