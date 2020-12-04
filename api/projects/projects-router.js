@@ -54,8 +54,8 @@ router.get("/api/projects/:id", validID, (req, res) => {
   //edit/put
   router.put("/api/projects/:id", [validID, validPost], (req, res) => {
     Projects.update(req.params.id, req.body)
-      .then(() => {
-        res.status(200).json({ message: "successfully updated user info" });
+      .then((project) => {
+        res.status(200).json(project);
       })
       .catch((err) => {
         res.status(400).json({ error: err });
@@ -70,7 +70,7 @@ router.get("/api/projects/:id", validID, (req, res) => {
           next();
         } else {
           res
-            .status(400)
+            .status(404)
             .json({ message: "the project with that id does not exist" });
         }
       })

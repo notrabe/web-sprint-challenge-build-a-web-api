@@ -20,7 +20,7 @@ router.get("/api/actions", (req, res) => {
 });
 
 //get actions in project
-router.get("/api/projects/:id/actions", (req, res) => {
+router.get("/api/projects/:id/actions", validID, (req, res) => {
   Actions.get()
     .then((data) => {
       res.status(200).json(data);
@@ -34,35 +34,18 @@ router.get("/api/projects/:id/actions", (req, res) => {
 
 //get by id
 router.get("/api/actions/:id", validID, (req, res) => {
-  Actions.get()
-    .then((data) => {
-      if(data) {
-    res.status(200).json(req.action);
-      } else {
-        res.status(404).json({ message: 'Action not found'})
-      }
-  })
-    .catch((err => {
-      res.status(500).json({
-        errorMessage: "get request is not working."
-      })
-    }))
-  });
-
+  res.status(200).json(req.action);
+});
 //post
-router.post("/api/actions/:id", [validID, validAction], (req, res) => {
-  const newAction = {
-    project_id: req.params.id,
-    ...req.body,
-  };
-  Actions.insert(newAction)
+router.post("/api/actions", validAction, (req, res) => {
+  Actions.insert(req.body)
     .then((data) => {
       res.status(201).json(data);
     })
     .catch((err) => {
       res
         .status(500)
-        .json({ errorMessage: "action post - something went wrong" });
+        .json({ errorMessage: "project post - something went wrong" });
     });
 });
 
@@ -83,8 +66,8 @@ router.delete("/api/actions/:id", validID, (req, res) => {
 //edit/put
 router.put("/api/actions/:id", [validID, validAction], (req, res) => {
   Actions.update(req.params.id, req.body)
-    .then(() => {
-      res.status(200).json({ message: "successfully updated user info" });
+    .then((data) => {
+      res.status(200).json(data);
     })
     .catch((err) => {
       res.status(400).json({ error: err });
@@ -102,7 +85,7 @@ function validID(req, res, next) {
         next();
       } else {
         res
-          .status(400)
+          .status(404)
           .json({ message: "the action with that id does not exist" });
       }
     })
@@ -118,7 +101,7 @@ function validAction(req, res, next) {
   if (!req.body) {
     res.status(400).json("missing action data");
   } else if (!req.body.description || !req.body.notes) {
-    res.status(400).json("you're missing something lad");
+    res.status(400).json("you're missing something");
   } else {
     next();
   }
