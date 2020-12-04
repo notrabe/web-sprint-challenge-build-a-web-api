@@ -26,9 +26,7 @@ router.get("/api/projects/:id/actions", validID, (req, res) => {
       res.status(200).json(data);
     })
     .catch((err) => {
-      res.status(500).json({
-        errorMessage: "get request - not working",
-      });
+      res.status(500).json([]);
     });
 });
 
